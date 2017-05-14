@@ -1,0 +1,16 @@
+
+        <h3>댓글수정</h3>
+        <form action="/<%=@one_post.id %>/comment_update/<%=@one_comment.id %>" method="post">
+
+          <div class="form-group">
+            <label for="exampleInputEmail1">Email address</label>
+            <input type="email" class="form-control" id="exampleInputEmail1" name="email" value="<%= @one_comment.email %>">
+          </div>
+          <div class="form-group">
+            <label for="content">content</label>
+            <textarea class="form-control" id="content" name="content" rows="3"><%= @one_comment.content %></textarea>
+          </div>
+          <button type="submit" class="btn btn-default">Submit</button>
+        </form>
+        <hr>
+        <a href= "/">메인으로 돌아가기</a>
