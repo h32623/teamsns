@@ -10,13 +10,20 @@ class HomeController < ApplicationController
     post.email = params[:email]
     post.title = params[:title]
     post.content = params[:content]
+    post.image_url = params[:pic]
+    
+    uploader = AvatarUploader.new
+    uploader.store!(params[:pic])
+    
+    post.image_url = uploader.url
+    
     if post.invalid?
       @error_message = post.errors.messages
     else
       post.save
-    
       redirect_to '/'
     end
+
   end
   
   def post_title
@@ -134,5 +141,4 @@ class HomeController < ApplicationController
     redirect_to '/'
     
   end  
-  
 end

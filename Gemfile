@@ -3,6 +3,10 @@ source 'https://rubygems.org'
 gem 'faker'
 gem 'rails_db'
 gem 'mailgun-ruby'
+gem 'fog', '~> 1.38'
+gem 'carrierwave'
+gem "fog-aws"
+gem 'mini_magick'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.5'
 # Use sqlite3 as the database for Active Record

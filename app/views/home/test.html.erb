@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title lang="ko">team1</title>
+
+</head>
+<body>
+  <div class="container">
+      
+    <header class="row pb-6">
+      <div class="col-12 col-sm-10">
+        <h1 class="brand mb-4">질문일기</h1>
+      </div>
+    </header>
+
+    
+    <% @questions.each do |q| %>
+                    
+        <% if q.id == Time.now.day %>
+            <div class="card">
+                <div class="card-block">
+                    Q. <%=q.question%>
+                </div>
+            </div>
+            
+            <%=@rand%>
+            <hr>
+        
+            <% q.memos.each do |m| %>
+            <div class="card">
+                <div class="card-block">
+                    <p class="card-text">
+                    <dl class="dl-horizontal">
+                        <dt><em>날짜</em></dt>
+                        <dd><%= m.created_at.to_date %></dd>
+                        <br>
+                        <dt><em>일기 내용</em></dt>
+                        <dd><%= m.content %></dd>
+                    </dl>
+                    <hr><br>
+                    <a href="/<%= q.id %>/memo_update/<%= m.id %>" class="btn btn-info">수정</a>
+                    <a href="/<%= q.id %>/memo_destroy/<%= m.id %>" class="btn btn-info">삭제</a>
+                  
+                    <!--좋아요가 0개이면-->
+                    <% if m.likes.empty? %> 
+                        <a href="/<%= m.id %>/like" class="btn btn-danger">좋아요</a>
+                        
+                    <!--좋아요가 1개 이상이면-->
+                    <% else %> 
+                        <% m.likes.each do |l| %>
+                        <!--좋아요 개수 출력-->
+                        <a href="/<%= m.id %>/like/<%= l.id %>" class="btn btn-danger">좋아요 <%= l.like_count %></a>
+  
+                    <% end %>
+                    </p>
+                </div>
+            </div>   
+            <% end %>          
+                
+        <% end %>
+              
+        <br>      
+        <div class="card">
+            <div class="card-block">
+                <h4 class="card-title">일기 작성</h4>
+                <p class="card-text">              
+                <form action="<%=q.id%>/memo_create" method="post">
+                
+                    <div class="form-group">
+                        <textarea class="form-control" id="content" name="content" rows="3" placeholder="content"></textarea>
+                    </div>
+                
+                <button type="submit" class="btn btn-success">Submit</button>
+                </form>
+                </p>
+            </div>
+        </div>
+        
+    <% end %>
+    <% end %>
+
+    <br>    
+    <center><a href= "/home/list" class="btn btn-default">목록 보기</a></center>              
+    <hr>
+    
+    
+    <footer class="row pb-5">
+      <div class="col-12">
+        <p class="copyright">&copy; 2017 Likelion. All Rights Reserved.</p>
+      </div>
+    </footer>
+    
+  </div>
+  <!-- jQuery -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <!-- bootstrap -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+  <!-- GSAP -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.18.2/TweenLite.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.18.2/plugins/CSSPlugin.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.19.1/TimelineLite.min.js"></script>
+  <!-- app -->
+  <script src="app.js"></script>
+</body>
+</html>

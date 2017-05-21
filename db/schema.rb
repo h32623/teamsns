@@ -33,8 +33,9 @@ ActiveRecord::Schema.define(version: 20170514173523) do
     t.string   "email"
     t.string   "title"
     t.text     "content"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.string   "image_url",  default: ""
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
   end
 
 end
