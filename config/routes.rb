@@ -1,5 +1,11 @@
 Rails.application.routes.draw do
+  devise_for :users
+    mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
+  
+  resources :posts
   get 'home/index'
+  #get '/sessions/new'
+  get '/errorview/error_page'
   
   get 'home/post_write' 
   post '/write' => 'home#write'

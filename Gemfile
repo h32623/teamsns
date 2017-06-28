@@ -1,12 +1,17 @@
 source 'https://rubygems.org'
 
 gem 'faker'
-gem 'rails_db'
 gem 'mailgun-ruby'
 gem 'fog', '~> 1.38'
 gem 'carrierwave'
 gem "fog-aws"
 gem 'mini_magick'
+gem 'devise'  # (로그인/회원가입 기능)
+gem 'rolify'    # (회원 권한설정)
+gem 'authority'  # (권한관리)
+gem 'rails_admin'
+
+gem 'rails_db'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.5'
 # Use sqlite3 as the database for Active Record

@@ -2,11 +2,7 @@
         <h3 style="letter-spacing:5px; color:#FF6347">[댓글수정]</h3>
         <br>
         <form action="/<%=@one_post.id %>/comment_update/<%=@one_comment.id %>" method="post">
-
-          <div class="form-group">
-            <label for="exampleInputEmail1">Name</label>
-            <input type="email" class="form-control" id="exampleInputEmail1" name="email" value="<%= @one_comment.email %>">
-          </div>
+          <input type="hidden" value="<%= current_user.email%>" name="email">
           <div class="form-group">
             <label for="content">Content</label>
             <textarea class="form-control" id="content" name="content" rows="3"><%= @one_comment.content %></textarea>

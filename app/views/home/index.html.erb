@@ -1,12 +1,60 @@
 <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+
 <style>
     body {
         font-family:'맑은고딕' 'NanumGothic', 'MalgunGothic';
-        
     }
+    container.top {
+        position: fixed;
+        left: 50%;
+        bottom: 50px;
+        display: none;
+      }
 </style>
-<div class="container" style="margin-top: 30px;" align="center">
+<!--보라 위로 스르륵 올라가기-->
+ <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+    <script>
+      $( document ).ready( function() {
+        $( window ).scroll( function() {
+          if ( $( this ).scrollTop() > 200 ) {
+            $( '.top' ).fadeIn();
+          } else {
+            $( '.top' ).fadeOut();
+          }
+        } );
+        $( '.top' ).click( function() {
+          $( 'html, body' ).animate( { scrollTop : 0 }, 400 );
+          return false;
+        } );
+      } );
+      
+    </script>
+    
+    
+    <!-- 혜연 : 버튼 누르면 내용 숨겨지고 다시 누르면 나옴 -->
+    <script>
+    $(function(){
+      $('button').click(function(){
+          
+       $('p').slideToggle();
+       if ($(this).text() == "▲") 
+       { 
+        $(this).text("▼"); 
+       } 
+       else 
+       { 
+        $(this).text("▲"); 
+       }; 
+      });
+    
+     });//jQuery        
+    </script>
+    
 
+
+<div class="container" style="margin-top: 30px;" align="center">
+    
+    
     <div class="content">
         <div class="content__container">
         <p class="content__container__text">
@@ -21,7 +69,24 @@
         </div>
     </div>
     
+    <div align="right">
+        <% if user_signed_in? %>
+            <p>
+                <%= current_user.email %>
+                <p style="color:#FF6347;"><%=current_user.roles.map(&:name).join(',').titleize %></p>
+                <%= button_to "logout", destroy_user_session_path, method: :delete, data: {confirm: "진짜류 간다구?"} %>
+            </p>
+        <%end%>
         <p>
+        <% if user_signed_in? %>
+            <% if current_user.roles.map(&:name).join(',') == 'admin'%>
+                <%= link_to "AdminPage", '/admin' %>
+            <% end %>
+        <% end %>
+        </p>
+    </div>
+    
+        
         <table width="100%" style="margin-top:120px;">
             <tr>
                 <th>썸넬</th>
@@ -32,19 +97,52 @@
             </tr>
             <% @posts.each do |p| %>
             <tr>
-            
-            <% unless p.image_url.empty? %>
-              <td><img src="<%=p.image_url%>" width="50" height="50"></td>
-            <% end %>  
-                <td><%= p.email %></td> 
+                
+                        
+                <td><% if p.image_url? %><img src="<%=p.image_url%>" width="50" height="50"><% end %></td>
+                 
+                <td><%=p.email%></td>
                 <td><a href="/post_title/<%=p.id%>"><%= p.title %></a></td>
-                <td><a href="/update/<%=p.id%>">✨</a></td>
-                <td><a href="/destroy/<%=p.id%>">👋🏻</a></td>
+                
+                
+                <% if user_signed_in? %>
+                    <% if current_user.id == p.user_id %>
+                        <td><a href="/update/<%=p.id%>">✨</a> </td>
+                        <td><a href="/destroy/<%=p.id%>">👋</a></td>
+                    
+                    <% elsif current_user.roles.map(&:name).join(',') == 'admin'%>
+                        <td><a href="/update/<%=p.id%>">✨</a> </td>
+                        <td><a href="/destroy/<%=p.id%>">👋</a></td>
+                    
+                    <% end %>
+                <% end %>
+                
             </tr>
             <% end %>
         </table>
-        <br><br>
-        </p>
         
-        <div align="right"><a href="/home/post_write">📝 작성하기</a></div>
+        <br><br>
+        
+        <div align="right">
+            <a href="/home/post_write">📝 작성하기</a><br>
+    
+        </div>
+        <a href="#" class="top">👆</a> <br />
+        
+        <br>
+        
+        <button>▲</button>
+        <p>
+            보라 혜연 우영 지수
+        </p>
+
 </div>
+
+<style type="text/css">
+	canvas { cursor: url(../assets/team1.cur), auto; }
+</style>
+
+<script type="text/javascript">
+	$('.container').css({'cursor':'url(../assets/team1.cur), auto'});
+</script>
+<!--우영 마우스포인터 변경 -->

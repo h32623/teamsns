@@ -6,11 +6,5 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
-
-post = Post.new
-post.email = Faker::Internet.email
-post.title = "제목입니다"
-post.content = "내용입니다"
-post.save
-
-Post.create!(email: Faker::Internet.email, title: "제목2",content: "내용2")
+admin_user = User.create(email: 'admin@email.com', password: '123456')
+admin_user.add_role :admin

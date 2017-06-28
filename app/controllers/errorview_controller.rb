@@ -1,0 +1,2 @@
+class ErrorviewController < ApplicationController
+end
